@@ -125,7 +125,7 @@ public int removeLast(){
 }
 
 //---------------------------------------------------------------------------------------------------------------------------------------------------------
-// searching in array
+// searching in linkedlist
     public void  itrSearch(int key){
     Node temp =head ;
 
@@ -138,6 +138,7 @@ public int removeLast(){
 
     }
         System.out.println("key not found ");
+
 //    int i =0;
 //
 //    while(temp != null){
@@ -243,25 +244,85 @@ public Boolean cheakPalindrome (){
     return true;
 }
 
+// detect a loop / cycle in a linkedlist
+    public static boolean isCycle(){
+     Node slow = head;
+     Node fast = head;
 
+     while(fast != null && fast.next != null) {
+         slow = slow.next; // +1
+         fast = fast.next.next; // +2
 
-// q. find and remove Nth node from end
+         if(slow == fast){
+             return true ; //  cycle exists
+         }
+
+     }
+     return false;
+    }
+
+    // Removing a cycle in a LinkedList
+
+    public static void removeCycle(){
+     // detect cycle
+        Node slow = head ;
+        Node fast = head;
+        boolean cycle = false;
+
+        while (fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (fast == slow){
+                cycle =  true;
+                break;
+            }
+        }
+        if (cycle == false){
+            return;
+        }
+        // find meeting point
+        slow = head;
+        Node prev = null;
+        while (slow != fast){
+            prev = fast ;
+            slow =slow.next;
+            fast= fast.next;
+
+        }
+
+        // remove cycle = last.next = null
+        prev.next = null;
+
+    }
 
 
 // main function
     public static void main(String[] args){
         LinkedList ll = new LinkedList();
-        ll.print();
-        ll.addFirst(1);
-        ll.addFirst(2);
-        ll.addLast(1);
-        ll.addLast(2);
+//        ll.print();
+//        ll.addFirst(1);
+//        ll.addFirst(2);
+//        ll.addLast(1);
+//        ll.addLast(2);
+//
+//        ll.print();
+//        System.out.println(ll.recSearch(5));
+//        System.out.println(ll.recSearch(10));
+//        ll.reverse();
+//        ll.print();
+//        ll.itrSearch(2);
 
-        ll.print();
-        System.out.println(ll.recSearch(5));
-        System.out.println(ll.recSearch(10));
-        ll.reverse();
-        ll.print();
-        System.out.println(ll.cheakPalindrome() );
+        ll.head = new Node(3);
+        Node temp = new Node(6);
+        ll.head.next =temp;
+        ll.head.next.next = new Node(5);
+        ll.head.next.next.next = temp ;
+
+//        ll.print();
+        System.out.println(ll.isCycle());
+        ll.removeCycle();
+
+        System.out.println(ll.isCycle());
     }
 }
