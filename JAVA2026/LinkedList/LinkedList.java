@@ -2,7 +2,6 @@
 public class LinkedList {
     // node class
 public static class Node{
-
     int data ;
     Node next ;
 
@@ -11,12 +10,12 @@ public static class Node{
         this.next = null;
     }
 }
-
 // head and tail
 public static Node head;  //belongs to the class itself
 public static Node tail;
 public static int size;
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
 // add first
 public void addFirst(int data){
     // setp 1 =  create new node
@@ -33,6 +32,7 @@ public void addFirst(int data){
     head = newNode;
 }
 
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------
 // add last
 public void addLast(int data){
     Node newNode = new Node(data);
@@ -43,9 +43,10 @@ public void addLast(int data){
     }
     tail.next = newNode;
     tail = newNode;
-
 }
 
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------
+// adding elemet in middle of linked list
 public void addMid(int idx , int data){
     if (idx == 0 ){
         addFirst(data);
@@ -60,12 +61,13 @@ public void addMid(int idx , int data){
         temp = temp.next;
         i++;
     }
-
     // i= idx-1 ; temp ==> prev
     newNode.next = temp.next;
     temp.next = newNode;
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------
+// printing the linkedlist
 public void print(){
     if (head == null){
         System.out.println("Linked list is empty");
@@ -79,6 +81,7 @@ public void print(){
     System.out.println("null");
 }
 
+//-------------------------------------------------------------------------------------------------------------------------------------------------------
 // Remove first
 public int removefirst(){
     if (size == 0){
@@ -97,9 +100,8 @@ public int removefirst(){
     return val;
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------------------
 // remove last
-
-
 public int removeLast(){
     if (size == 0){
         System.out.println("liked list is empty");
@@ -110,8 +112,6 @@ public int removeLast(){
         size = 0;
         return val;
     }
-
-
     // prev : i=size-2
     Node prev  = head;
     for (int i=0; i<size-2; i++){
@@ -124,6 +124,7 @@ public int removeLast(){
     return val;
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------
 // searching in array
     public void  itrSearch(int key){
     Node temp =head ;
@@ -152,6 +153,7 @@ public int removeLast(){
     }
 
 
+    //--------------------------------------------------------------------------------------------------------------------------------------------------
     // recursive search
     public int helper(Node head , int key){
     if (head == null){
@@ -169,10 +171,11 @@ public int removeLast(){
 
     return idx+1;
     }
-public int recSearch(int key){
+    public int recSearch(int key){
       return helper(head , key);
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------
 // reverse a linkedlist
 public void reverse(){
     Node prev = null;
@@ -189,30 +192,76 @@ public void reverse(){
 
 }
 
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------
+// finding mid in LinkedList by slow fast approach
+public Node findMid(Node head){
+    Node slow = head ;
+    Node fast = head;
+
+    while (fast != null && fast.next != null){
+        slow = slow.next; // +1
+        fast = fast.next.next; //+2
+
+    }
+    return slow;
+}
+
+//----------------------------------------------------------------------------------------------------------------------------------------
+// check weather linklist is palindrome or not
+public Boolean cheakPalindrome (){
+
+    if (head == null || head.next == null){
+        return true ;
+
+    }
+    // step 1 - find mid
+    Node midNode = findMid(head);
+
+    // step 2 reverse 2nd half
+    Node prev = null;
+    Node curr = midNode;
+    Node next ;
+
+    while (curr != null){
+        next = curr.next;
+        curr.next =prev;
+        prev = curr;
+        curr = next;
+    }
+
+    Node right = prev; // right half head
+    Node left   =head ;
+
+    // step 3 cheak left half and right half
+    while (right !=  null){
+        if (left.data != right.data){
+            return  false;
+        }
+        left = left.next;
+        right = right.next;
+    }
+    return true;
+}
+
+
+
+// q. find and remove Nth node from end
+
 
 // main function
     public static void main(String[] args){
         LinkedList ll = new LinkedList();
         ll.print();
-        ll.addFirst(2);
         ll.addFirst(1);
-        ll.addLast(4);
-        ll.addLast(5);
-        ll.addMid(2 , 3);
-//        ll.print();
-//        System.out.println(ll.size);
-//
-//       int  x =  ll.removefirst();
-//        ll.print();
-//        System.out.println("val of x : " + x );
-//
-////        ll.removeLast();
+        ll.addFirst(2);
+        ll.addLast(1);
+        ll.addLast(2);
+
         ll.print();
-////        System.out.println(ll.size);
-ll.print();
         System.out.println(ll.recSearch(5));
         System.out.println(ll.recSearch(10));
         ll.reverse();
         ll.print();
+        System.out.println(ll.cheakPalindrome() );
     }
 }
