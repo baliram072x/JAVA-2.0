@@ -243,7 +243,7 @@ public Boolean cheakPalindrome (){
     }
     return true;
 }
-
+//------------------------------------------------------------------------------------------------------------------------------------------------
 // detect a loop / cycle in a linkedlist
     public static boolean isCycle(){
      Node slow = head;
@@ -260,7 +260,7 @@ public Boolean cheakPalindrome (){
      }
      return false;
     }
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------
     // Removing a cycle in a LinkedList
 
     public static void removeCycle(){
@@ -290,7 +290,6 @@ public Boolean cheakPalindrome (){
             fast= fast.next;
 
         }
-
         // remove cycle = last.next = null
         prev.next = null;
 
